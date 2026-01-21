@@ -13,9 +13,11 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id String @id @default(uuid())
-  name String
-  address String
-  age Int
+model Solicitantes {
+  id              Int      @id @default(autoincrement())
+  nomeSolicitante String
+  titulo          String
+  descricao       String
+  dataPedido      DateTime
+  dataEntrega     DateTime
 }
