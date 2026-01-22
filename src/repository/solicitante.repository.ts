@@ -23,7 +23,7 @@ async function getOrder(){
     return getOrder;
 }
 
-async function updateOrder(id: number, data: data){
+async function updateOrder(id: number, data: data){ 
     const updateOrder = await prisma.solicitantes.update({
         where: {
             id: id
@@ -35,7 +35,7 @@ async function updateOrder(id: number, data: data){
 }
 
 async function deleteOrder(id:number){
-    const deleteOrder = prisma.solicitantes.delete({
+    const deleteOrder = await prisma.solicitantes.delete({
         where:{
             id: id
         }
@@ -44,9 +44,12 @@ async function deleteOrder(id:number){
     return deleteOrder;
 }
 
-
-
-export {createOrder, getOrder, updateOrder, deleteOrder}
+export default{
+    createOrder,
+    getOrder, 
+    updateOrder, 
+    deleteOrder
+}
 
 
 
