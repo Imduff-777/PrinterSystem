@@ -1,21 +1,53 @@
 import { prisma } from "../prisma/prisma.js"
 
-async function createOrder(
+type data = {
     nomeSolicitante: string, 
-    titulo:string, 
+    titulo: string, 
     descricao: string, 
     dataPedido: Date,
-    dataEntrega: Date,){
-    const order = await prisma.solicitantes.create({
-        data:{
-            nomeSolicitante:nomeSolicitante,
-            titulo:titulo,
-            descricao:descricao,
-            dataPedido:dataPedido,
-            dataEntrega:dataEntrega
-        }
-    })
-    console.log(order)
+    dataEntrega: Date
 }
 
-export {createOrder}
+async function createOrder(data: data){
+    const createOrder = await prisma.solicitantes.create({
+        data
+    })
+    console.log(createOrder)
+    return createOrder;
+    
+}
+
+async function getOrder(){
+    const getOrder = await prisma.solicitantes.findMany();
+    console.log(getOrder)
+    return getOrder;
+}
+
+async function updateOrder(id: number, data: data){
+    const updateOrder = await prisma.solicitantes.update({
+        where: {
+            id: id
+        },
+        data
+    })
+    console.log(updateOrder)
+    return updateOrder;
+}
+
+async function deleteOrder(id:number){
+    const deleteOrder = prisma.solicitantes.delete({
+        where:{
+            id: id
+        }
+    })
+    console.log(deleteOrder)
+    return deleteOrder;
+}
+
+
+
+export {createOrder, getOrder, updateOrder, deleteOrder}
+
+
+
+

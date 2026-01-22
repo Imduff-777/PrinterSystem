@@ -1,25 +1,54 @@
 import express from "express"
 import { prisma } from "./prisma/prisma.js"
 import { get } from "node:http"
-import {createOrder} from "./repository/solicitante.repository.js"
+import {createOrder, getOrder, updateOrder, deleteOrder} from "./repository/solicitante.repository.js"
 
 const app = express()
 
 app.use(express.json())
 
-app.post("/adduser", (req,res) => {
-    const body = req.body
-    createOrder(body.nomeSolicitante, body.titulo, body.descricao, body.dataPedido, body.dataEntrega)
+app.post("/addorder", async (req,res) => {
+    try{
+        const order = await createOrder(req.body)
+        res.status(201).json(order)
+    }catch(e){
+        console.log(e)
+        res.status(500).json({error: "Erro ao criar solicitante"}) 
+    }
 })
 
-
 app.get("/", async (req, res) => {
-    async function getUsers(){
-        const users = await prisma.solicitantes.findMany();
-        return users;
+    try{
+        const order = await getOrder()
+        res.status(200).json(order)
+    }catch(e){
+        console.log(e)
+        res.status(500).json({error: "Erro ao puxar solicitantes"})
+        
     }
-    const result = await getUsers()
-    res.json(result)
+    
+})
+
+app.put("/update/:id", async (req, res) => {
+    try{
+        const order = updateOrder(Number(req.params.id), req.body)
+        res.json(order)
+    }catch(e){
+        console.log(e)
+        res.status(404).json({error: "solicitante não encontrado"})
+    }
+    
+})
+
+app.delete("/delete/:id", async (req,res) => {
+    try{
+        const order = deleteOrder(Number(req.params.id))
+        res.json(order)
+    }catch(e){
+        console.log(e)
+        res.status(404).json({error: "solicitante não encontrado"})
+    }
+    
 })
 
 
