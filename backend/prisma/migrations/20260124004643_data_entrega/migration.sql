@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Solicitantes" ALTER COLUMN "dataPedido" SET DATA TYPE TIMESTAMP(3),
+ALTER COLUMN "dataEntrega" DROP NOT NULL,
+ALTER COLUMN "dataEntrega" SET DATA TYPE TIMESTAMP(3);
