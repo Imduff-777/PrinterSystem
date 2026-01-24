@@ -1,14 +1,17 @@
+import { describe } from "node:test"
+import type { Prisma } from "../../generated/prisma/client.js"
 import { prisma } from "../prisma/prisma.js"
-
+import type { SolicitantesCreateInput } from "../../generated/prisma/models.js"
+/*
 type data = {
     nomeSolicitante: string, 
     titulo: string, 
     descricao: string, 
     dataPedido: Date,
-    dataEntrega: Date
+    dataEntrega?: Date | null | undefined
 }
-
-async function createOrder(data: data){
+*/
+async function createOrder(data: SolicitantesCreateInput){
     const createOrder = await prisma.solicitantes.create({
         data
     })
@@ -23,7 +26,7 @@ async function getOrder(){
     return getOrder;
 }
 
-async function updateOrder(id: number, data: data){ 
+async function updateOrder(id: number, data: Prisma.SolicitantesCreateInput){ 
     const updateOrder = await prisma.solicitantes.update({
         where: {
             id: id

@@ -18,6 +18,7 @@ model Solicitantes {
   nomeSolicitante String
   titulo          String
   descricao       String
-  dataPedido      DateTime @db.Date
-  dataEntrega     DateTime @db.Date
+  dataPedido      DateTime
+  prazo           DateTime? 
+  dataEntrega     DateTime?
 }
