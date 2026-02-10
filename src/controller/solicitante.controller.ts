@@ -3,6 +3,7 @@ import type { Request, Response } from "express"
 
 async function addOrder(req: Request, res: Response){
     try{
+        console.log(req.body)
         const order = await repository.createOrder(req.body)
         res.status(201).json(order)
     }catch(e){
