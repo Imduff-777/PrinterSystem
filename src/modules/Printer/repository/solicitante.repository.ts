@@ -11,6 +11,7 @@ type data = {
     dataEntrega?: Date | null | undefined
 }
 */
+
 async function createOrder(data: SolicitantesCreateInput){
     const createOrder = await prisma.solicitantes.create({
         data
