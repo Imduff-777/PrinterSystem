@@ -1,7 +1,7 @@
 import { describe } from "node:test"
-import type { Prisma } from "../../generated/prisma/client.js"
-import { prisma } from "../prisma/prisma.js"
-import type { SolicitantesCreateInput } from "../../generated/prisma/models.js"
+import type { Prisma } from "../../../../generated/prisma/client.js"
+import { prisma } from "../../../prisma/prisma.js"
+import type { SolicitantesCreateInput } from "../../../../generated/prisma/models.js"
 /*
 type data = {
     nomeSolicitante: string, 

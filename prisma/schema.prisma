@@ -22,3 +22,17 @@ model Solicitantes {
   prazo           DateTime? 
   dataEntrega     DateTime?
 }
+
+model Livros {
+  id              Int      @id @default(autoincrement())
+  autor           String
+  titulo          String
+  subtitulo       String
+  editora         String
+  data            DateTime
+  edicao          Int
+  formato         String
+  QntLivro        Int
+  cdd             Int
+
+}
