@@ -5,7 +5,6 @@ const port = Number(process.env.PORT)
 console.log(process.env.PORT)
 
 
-app.listen(8080, '127.0.0.1',  () => {
+app.listen(port, '0.0.0.0',  () => {
     console.log(`server rodando na porta ${port}`)
-    
 })

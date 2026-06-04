@@ -17,7 +17,7 @@ async function getOrder(req: Request, res: Response){
         const order = await repository.getOrder()
         res.status(200).json(order)
     }catch(e){
-        console.log(e)
+        console.error(e)
         res.status(500).json({error: "Erro ao puxar solicitantes"})
             
     }
