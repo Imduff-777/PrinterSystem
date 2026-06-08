@@ -1,5 +1,6 @@
 import express from "express"
-import {router} from "./router.js"
+import {printerRouter} from "./routes/printer.router.js"
+import {booksRouter} from "./routes/books.router.js"
 import cors from 'cors'
 
 const app = express()
@@ -7,7 +8,8 @@ app.use(cors({
     origin: '*'
 }))
 app.use(express.json())
-app.use(router)
+app.use("/printer", printerRouter)
+app.use("/books", booksRouter)
 
 
 export {app}
