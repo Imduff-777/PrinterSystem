@@ -13,6 +13,7 @@ async function createOrder(data: LivrosCreateInput){
     
 }
 
+
 async function getOrder(){
     console.log("entrou")
     const getOrder = await prisma.livros.findMany();

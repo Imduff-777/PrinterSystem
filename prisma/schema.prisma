@@ -19,7 +19,8 @@ model Solicitantes {
 
 model Livros {
   id              Int      @id @default(autoincrement())
-  autor           String
+  autorID         Int
+  autor           Autor    @relation(fields: [autorID], references: [id])
   titulo          String
   subtitulo       String
   editora         String
@@ -28,4 +29,10 @@ model Livros {
   formato         String
   QntLivro        Int
   cdd             Int
+}
+
+model Autor {
+  id              Int      @id @default(autoincrement())
+  nome            String
+  livros          Livros[]
 }
