@@ -1,7 +1,7 @@
 import { describe } from "node:test"
 import type { Prisma } from "../../../../generated/prisma/client.js"
 import { prisma } from "../../../prisma/prisma.js"
-type SolicitantesCreateInput = Prisma.SolicitantesCreateInput
+type SolicitantesCreateInput = Prisma.SolicitanteCreateInput
 /*
 type data = {
     nomeSolicitante: string, 
@@ -11,9 +11,8 @@ type data = {
     dataEntrega?: Date | null | undefined
 }
 */
-
 async function createOrder(data: SolicitantesCreateInput){
-    const createOrder = await prisma.solicitantes.create({
+    const createOrder = await prisma.solicitante.create({
         data
     })
     console.log(createOrder)
@@ -23,13 +22,13 @@ async function createOrder(data: SolicitantesCreateInput){
 
 async function getOrder(){
     console.log("entrou")
-    const getOrder = await prisma.solicitantes.findMany();
+    const getOrder = await prisma.solicitante.findMany();
     console.log(getOrder)
     return getOrder;
 }
 
-async function updateOrder(id: number, data: Prisma.SolicitantesCreateInput){ 
-    const updateOrder = await prisma.solicitantes.update({
+async function updateOrder(id: number, data: Prisma.SolicitanteCreateInput){ 
+    const updateOrder = await prisma.solicitante.update({
         where: {
             id: id
         },
@@ -40,7 +39,7 @@ async function updateOrder(id: number, data: Prisma.SolicitantesCreateInput){
 }
 
 async function deleteOrder(id:number){
-    const deleteOrder = await prisma.solicitantes.delete({
+    const deleteOrder = await prisma.solicitante.delete({
         where:{
             id: id
         }

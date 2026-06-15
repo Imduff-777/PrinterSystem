@@ -1,11 +1,11 @@
 import { describe } from "node:test"
 import type { Prisma } from "../../../../generated/prisma/client.js"
 import { prisma } from "../../../prisma/prisma.js"
-type LivrosCreateInput = Prisma.LivrosCreateInput
+type LivroCreateInput = Prisma.LivroCreateInput
 
 
-async function createOrder(data: LivrosCreateInput){
-    const createOrder = await prisma.livros.create({
+async function createOrder(data: LivroCreateInput){
+    const createOrder = await prisma.livro.create({
         data
     })
     console.log(createOrder)
@@ -16,13 +16,17 @@ async function createOrder(data: LivrosCreateInput){
 
 async function getOrder(){
     console.log("entrou")
-    const getOrder = await prisma.livros.findMany();
+    const getOrder = await prisma.livro.findMany({
+        include:{
+            autor:true
+        }
+    });
     console.log(getOrder)
     return getOrder;
 }
 
-async function updateOrder(id: number, data: Prisma.LivrosCreateInput){ 
-    const updateOrder = await prisma.livros.update({
+async function updateOrder(id: number, data: LivroCreateInput){ 
+    const updateOrder = await prisma.livro.update({
         where: {
             id: id
         },
@@ -33,7 +37,7 @@ async function updateOrder(id: number, data: Prisma.LivrosCreateInput){
 }
 
 async function deleteOrder(id:number){
-    const deleteOrder = await prisma.livros.delete({
+    const deleteOrder = await prisma.livro.delete({
         where:{
             id: id
         }
