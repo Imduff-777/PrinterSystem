@@ -1,7 +1,9 @@
 import { describe } from "node:test"
 import type { Prisma } from "../../../../generated/prisma/client.js"
 import { prisma } from "../../../prisma/prisma.js"
+import { serialize } from "node:v8"
 type LivroCreateInput = Prisma.LivroCreateInput
+
 
 
 async function createOrder(data: LivroCreateInput){
@@ -23,6 +25,92 @@ async function getOrder(){
     });
     console.log(getOrder)
     return getOrder;
+}
+
+async function getBooks(page:number, pesquisa?:string, campo:string = "titulo", ordem:"asc" | "desc" = "asc") {
+    let orderBy
+    const limit = 10;
+    switch(campo){
+        case "subtitulo":
+            orderBy = {
+                subtitulo:ordem
+            };break;
+
+        case "autor":
+            orderBy = {
+                autor: {
+                    nome:ordem
+                }
+            };break;
+        
+        default:
+            orderBy = {
+                titulo:ordem
+            };
+    }
+    
+
+
+    const [livros, total] = await prisma.$transaction([
+        prisma.livro.findMany({
+            skip:(page - 1) * limit,
+            take:limit,
+            orderBy,
+            include:{
+                autor:true
+            }
+        }),
+
+        prisma.livro.count()
+    ]);
+
+    return{
+        livros,
+        total,
+        pagina: page,
+        totalPaginas: Math.ceil(total / limit)
+    }
+}
+
+async function search(query:string) {
+    const search = await prisma.livro.findMany({
+        where:{
+            OR:[
+                {
+                    titulo:{
+                        contains:query,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    subtitulo:{
+                        contains:query,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    editora:{
+                        contains:query,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    autor:{
+                        nome:{
+                            contains:query,
+                            mode:"insensitive"
+                        }
+                    }
+                }
+            ]
+        },
+
+        include:{
+            autor:true
+        }
+    })
+    console.log(search)
+    return search;
 }
 
 async function updateOrder(id: number, data: LivroCreateInput){ 
@@ -50,7 +138,9 @@ export default{
     createOrder,
     getOrder, 
     updateOrder, 
-    deleteOrder
+    deleteOrder,
+    search,
+    getBooks
 }
 
 

@@ -23,6 +23,31 @@ async function getOrder(req: Request, res: Response){
     }
 }
 
+async function getSearch(req: Request, res: Response) {
+    try{
+        const {q} = req.query;
+        const getSearch = await repository.search(String(q))
+        res.status(200).json(getSearch)
+    }catch(e){
+        console.error(e)
+        res.status(500).json({error: "Erro ao fazer pesquisa."})
+    }
+}
+
+async function getBooks(req: Request, res: Response) {
+    try{
+        const page = Number(req.query.page) || 1
+        const ordem = req.query.ordem === "desc"
+        ? "desc"
+        : "asc"
+        const getBooks = await repository.getBooks(page, ordem)
+        res.status(200).json(getBooks)
+    }catch(e){
+        console.error(e)
+        res.status(500).json({error: "Erro ao buscar livros"})
+    }
+}
+
 async function updateOrder(req: Request, res: Response){
     try{
         const order = await repository.updateOrder(Number(req.params.id), req.body)
@@ -47,5 +72,7 @@ export default {
     addOrder,
     getOrder,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    getSearch,
+    getBooks
 }
