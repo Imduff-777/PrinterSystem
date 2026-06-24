@@ -40,7 +40,9 @@ async function getBooks(req: Request, res: Response) {
         const ordem = req.query.ordem === "desc"
         ? "desc"
         : "asc"
-        const getBooks = await repository.getBooks(page, ordem)
+        const pesquisa = String(req.query.pesquisa || "");
+        const campo = String(req.query.campo || "titulo")
+        const getBooks = await repository.getBooks(page, pesquisa, campo, ordem)
         res.status(200).json(getBooks)
     }catch(e){
         console.error(e)

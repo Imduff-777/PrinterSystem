@@ -30,6 +30,7 @@ async function getOrder(){
 async function getBooks(page:number, pesquisa?:string, campo:string = "titulo", ordem:"asc" | "desc" = "asc") {
     let orderBy
     const limit = 10;
+
     switch(campo){
         case "subtitulo":
             orderBy = {
@@ -42,26 +43,75 @@ async function getBooks(page:number, pesquisa?:string, campo:string = "titulo", 
                     nome:ordem
                 }
             };break;
+
+        case "editora":
+            orderBy = {
+                editora:ordem
+            }
         
         default:
             orderBy = {
                 titulo:ordem
             };
     }
-    
 
+    const where: Prisma.LivroWhereInput | undefined = pesquisa
+    ? {
+        OR: [
+
+            {
+                titulo:{
+                    contains: pesquisa,
+                    mode:"insensitive"
+                }
+            },
+
+            {
+                subtitulo:{
+                    contains: pesquisa,
+                    mode:"insensitive"
+                }
+            },
+
+            {
+                editora:{
+                    contains:pesquisa,
+                    mode:"insensitive"
+                }
+            },
+
+            {
+                autor:{
+                    nome:{
+                        contains: pesquisa,
+                        mode:"insensitive"
+                    }
+                }
+            }
+
+        ]
+    }
+    : undefined;
 
     const [livros, total] = await prisma.$transaction([
         prisma.livro.findMany({
             skip:(page - 1) * limit,
             take:limit,
+            ...(where && {
+            where
+            }),
+
             orderBy,
             include:{
                 autor:true
             }
         }),
 
-        prisma.livro.count()
+        prisma.livro.count({
+            ...(where && {
+            where
+            })
+        })
     ]);
 
     return{
