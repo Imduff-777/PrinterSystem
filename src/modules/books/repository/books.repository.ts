@@ -122,6 +122,7 @@ async function getBooks(page:number, pesquisa?:string, campo:string = "titulo", 
     }
 }
 
+/*
 async function search(query:string) {
     const search = await prisma.livro.findMany({
         where:{
@@ -162,6 +163,7 @@ async function search(query:string) {
     console.log(search)
     return search;
 }
+*/
 
 async function updateOrder(id: number, data: LivroCreateInput){ 
     const updateOrder = await prisma.livro.update({
@@ -189,7 +191,7 @@ export default{
     getOrder, 
     updateOrder, 
     deleteOrder,
-    search,
+    /*search,*/
     getBooks
 }
 

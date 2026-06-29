@@ -7,6 +7,9 @@ datasource db {
   provider = "postgresql"
 }
 
+
+
+
 model Solicitante {
   id              Int       @id @default(autoincrement())
   nomeSolicitante String
@@ -29,10 +32,31 @@ model Livro {
   formato         String
   QntLivro        Int
   cdd             Int
+  emprestimos     emprestimo[]
 }
 
 model Autor {
   id              Int      @id @default(autoincrement())
   nome            String
   livros          Livro[]
+}
+
+model Aluno {
+  id              Int      @id @default(autoincrement())
+  nome            String
+  cpf             String   @unique @db.Char(11)
+  emprestimos     emprestimo[]
+}
+
+
+model emprestimo {
+
+  id Int @id @default(autoincrement())
+  alunoId Int
+  aluno Aluno @relation(fields:[alunoId],references:[id])
+  livroId Int
+  livro Livro @relation(fields:[livroId],references:[id])
+  dataEmprestimo DateTime @default(now())
+  dataDevolucao DateTime
+
 }

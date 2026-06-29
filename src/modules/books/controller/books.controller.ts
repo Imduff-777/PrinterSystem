@@ -22,7 +22,7 @@ async function getOrder(req: Request, res: Response){
             
     }
 }
-
+/*
 async function getSearch(req: Request, res: Response) {
     try{
         const {q} = req.query;
@@ -33,13 +33,12 @@ async function getSearch(req: Request, res: Response) {
         res.status(500).json({error: "Erro ao fazer pesquisa."})
     }
 }
+*/
 
 async function getBooks(req: Request, res: Response) {
     try{
         const page = Number(req.query.page) || 1
-        const ordem = req.query.ordem === "desc"
-        ? "desc"
-        : "asc"
+        const ordem = req.query.ordem === "desc" ? "desc" : "asc"
         const pesquisa = String(req.query.pesquisa || "");
         const campo = String(req.query.campo || "titulo")
         const getBooks = await repository.getBooks(page, pesquisa, campo, ordem)
@@ -75,6 +74,6 @@ export default {
     getOrder,
     updateOrder,
     deleteOrder,
-    getSearch,
+    /*getSearch,*/
     getBooks
 }
