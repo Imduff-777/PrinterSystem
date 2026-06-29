@@ -48,7 +48,6 @@ model Aluno {
   emprestimos     emprestimo[]
 }
 
-
 model emprestimo {
 
   id Int @id @default(autoincrement())
