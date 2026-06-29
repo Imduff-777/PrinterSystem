@@ -32,7 +32,7 @@ model Livro {
   formato         String
   QntLivro        Int
   cdd             Int
-  emprestimos     emprestimo[]
+  itensEmprestimo itemEmprestimo[]
 }
 
 model Autor {
@@ -53,9 +53,20 @@ model emprestimo {
   id Int @id @default(autoincrement())
   alunoId Int
   aluno Aluno @relation(fields:[alunoId],references:[id])
-  livroId Int
-  livro Livro @relation(fields:[livroId],references:[id])
+  itens itemEmprestimo[]
   dataEmprestimo DateTime @default(now())
   dataDevolucao DateTime
 
+}
+
+model itemEmprestimo{
+  id              Int      @id @default(autoincrement())
+
+  emprestimoId    Int
+  emprestimo emprestimo    @relation(fields:[emprestimoId],references:[id])
+
+  livroId         Int
+  livro Livro              @relation(fields:[livroId],references:[id])
+
+  quantidade      Int      @default(1)
 }

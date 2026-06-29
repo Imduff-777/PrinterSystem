@@ -10,6 +10,38 @@ async function createAluno(data:AlunoCreateInput) {
     return createAluno
 }
 
+async function getAluno(){
+    console.log("entrou")
+    const getOrder = await prisma.aluno.findMany();
+    console.log(getOrder)
+    return getOrder;
+}
+
+async function updateAluno(id: number, data: AlunoCreateInput){ 
+    const updateOrder = await prisma.aluno.update({
+        where: {
+            id: id
+        },
+        data
+    })
+    console.log(updateOrder)
+    return updateOrder;
+}
+
+async function deleteAluno(id:number){
+    const deleteOrder = await prisma.aluno.delete({
+        where:{
+            id: id
+        }
+    })
+    console.log(deleteOrder)
+    return deleteOrder;
+}
+
+
 export default{
-    createAluno
+    createAluno,
+    deleteAluno,
+    updateAluno,
+    getAluno
 }
