@@ -12,7 +12,7 @@ async function createAluno(data:AlunoCreateInput) {
 
 async function getAluno(){
     console.log("entrou")
-    const getOrder = await prisma.aluno.findMany();
+    const getOrder = await prisma.aluno.findMany({include:{emprestimos:{include:{itens:{include:{livro:true}}}}}});
     console.log(getOrder)
     return getOrder;
 }

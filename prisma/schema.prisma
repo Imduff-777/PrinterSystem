@@ -55,7 +55,7 @@ model emprestimo {
   aluno Aluno @relation(fields:[alunoId],references:[id])
   itens itemEmprestimo[]
   dataEmprestimo DateTime @default(now())
-  dataDevolucao DateTime
+  dataPrevistaDevolucao DateTime
 
 }
 
@@ -68,5 +68,5 @@ model itemEmprestimo{
   livroId         Int
   livro Livro              @relation(fields:[livroId],references:[id])
 
-  quantidade      Int      @default(1)
+  dataDevolucao DateTime?
 }
