@@ -12,6 +12,19 @@ async function createEmprestimo(req: Request, res: Response) {
     }
 }
 
+async function finalizarEmprestimo(req:Request, res: Response) {
+    try {
+        const data = req.body
+        const finalizarEmprestimo = await repository.finalizarEmprestimo(data)
+        res.status(200).json(finalizarEmprestimo)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({error: "Erro ao buscar livros"})
+    }
+    
+}
+
 export default{
-    createEmprestimo
+    createEmprestimo,
+    finalizarEmprestimo
 }

@@ -7,9 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
-
-
 model Solicitante {
   id              Int       @id @default(autoincrement())
   nomeSolicitante String
@@ -33,6 +30,7 @@ model Livro {
   QntLivro        Int
   cdd             Int
   itensEmprestimo itemEmprestimo[]
+  disponivel      Boolean  @default(true)
 }
 
 model Autor {
