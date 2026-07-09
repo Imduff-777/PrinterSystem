@@ -27,7 +27,6 @@ model Livro {
   data            DateTime
   edicao          Int
   formato         String
-  QntLivro        Int
   cdd             Int
   itensEmprestimo itemEmprestimo[]
   disponivel      Boolean  @default(true)
@@ -39,8 +38,23 @@ model Autor {
   livros          Livro[]
 }
 
+enum PostoGraduacao {
+  SC   // Servidor Civil
+  SD   // Soldado
+  CB   // Cabo
+  SGT  // Sargento
+  ST   // Subtenente
+  ASP  // Aspirante-a-Oficial
+  TEN  // Tenente
+  CAP  // Capitão
+  MAJ  // Major
+  TC   // Tenente-Coronel
+  CEL  // Coronel
+}
+
 model Aluno {
   id              Int      @id @default(autoincrement())
+  pg              PostoGraduacao
   nome            String
   cpf             String   @unique @db.Char(11)
   emprestimos     emprestimo[]
