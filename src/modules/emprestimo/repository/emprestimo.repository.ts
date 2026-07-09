@@ -14,6 +14,18 @@ interface CreateEmprestimoDTO {
     livros: number[];
 }
 
+async function getEmprestimo(){
+    console.log("entrou")
+    const getEmprestimo = await prisma.emprestimo.findMany({
+        include:{
+            itens:{include:{livro:true}},
+            aluno:true
+        }
+    });
+    console.log(getEmprestimo)
+    return getEmprestimo;
+}
+
 
 async function createEmprestimo(data:CreateEmprestimoDTO){
 
@@ -113,5 +125,6 @@ async function finalizarEmprestimo(data:CreateItemEmprestimoDTO){
 
 export default{
     createEmprestimo,
-    finalizarEmprestimo
+    finalizarEmprestimo,
+    getEmprestimo
 }

@@ -104,7 +104,7 @@ async function getBooks(page:number, pesquisa?:string, campo:string = "titulo", 
             orderBy,
             include:{
                 autor:true
-            }
+            },
         }),
 
         prisma.livro.count({

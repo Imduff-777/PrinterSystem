@@ -1,6 +1,16 @@
 import repository from "../repository/emprestimo.repository.js"
 import type { Request, Response } from "express"
 
+async function getEmprestimo(req:Request, res:Response) {
+    try{
+        const getEmprestimo = await repository.getEmprestimo()
+        res.status(200).json(getEmprestimo)
+    }catch(e){
+        console.error(e)
+        res.status(500).json({error: "Erro ao buscar emprestimos"})
+    }
+}
+
 async function createEmprestimo(req: Request, res: Response) {
     try{
         const data = req.body
@@ -26,5 +36,6 @@ async function finalizarEmprestimo(req:Request, res: Response) {
 
 export default{
     createEmprestimo,
-    finalizarEmprestimo
+    finalizarEmprestimo,
+    getEmprestimo
 }
