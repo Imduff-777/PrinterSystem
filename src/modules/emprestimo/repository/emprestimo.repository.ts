@@ -14,16 +14,27 @@ interface CreateEmprestimoDTO {
     livros: number[];
 }
 
-async function getEmprestimo(){
-    console.log("entrou")
-    const getEmprestimo = await prisma.emprestimo.findMany({
-        include:{
+async function getEmprestimo(page:number){
+    const limit = 10;
+    const [emprestimos, total] = await prisma.$transaction([
+        prisma.emprestimo.findMany({
+            skip:(page - 1) * limit,
+            take:limit,
+            include:{
             itens:{include:{livro:true}},
             aluno:true
         }
-    });
-    console.log(getEmprestimo)
-    return getEmprestimo;
+        }),
+
+        prisma.emprestimo.count()
+    ])
+
+    return{
+        emprestimos,
+        total,
+        pagina: page,
+        totalPaginas: Math.ceil(total / limit)
+    }
 }
 
 

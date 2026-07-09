@@ -10,11 +10,26 @@ async function createAluno(data:AlunoCreateInput) {
     return createAluno
 }
 
-async function getAluno(){
-    console.log("entrou")
-    const getOrder = await prisma.aluno.findMany({include:{emprestimos:{include:{itens:{include:{livro:true}}}}}});
-    console.log(getOrder)
-    return getOrder;
+async function getAluno(page:number){
+    const limit = 10;
+    const [alunos, total] = await prisma.$transaction([
+        prisma.aluno.findMany({
+            skip:(page - 1) * limit,
+            take:limit,
+            include:{emprestimos:{include:{itens:{include:{livro:true}}}}}
+        }),
+
+        prisma.aluno.count()
+        
+    ])
+    console.log(alunos)
+
+    return{
+        alunos,
+        total,
+        pagina: page,
+        totalPaginas: Math.ceil(total / limit)
+    }
 }
 
 async function updateAluno(id: number, data: AlunoCreateInput){ 
