@@ -27,9 +27,10 @@ model Livro {
   data            DateTime
   edicao          Int
   formato         String
-  cdd             Int
-  itensEmprestimo itemEmprestimo[]
+  cdd             String
+  acervo          Boolean  @default(false)
   disponivel      Boolean  @default(true)
+  itensEmprestimo itemEmprestimo[]
 }
 
 model Autor {

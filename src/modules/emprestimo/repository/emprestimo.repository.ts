@@ -1,6 +1,7 @@
 import type { Prisma } from "../../../../generated/prisma/client.js"
 import { prisma } from "../../../prisma/prisma.js"
 
+
 type emprestimo = Prisma.itemEmprestimoCreateInput
 
 interface CreateItemEmprestimoDTO {
