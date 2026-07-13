@@ -1,4 +1,5 @@
 import repository from "../repository/emprestimo.repository.js"
+import service from "../service/emprestimo.service.js"
 import type { Request, Response } from "express"
 
 async function getEmprestimo(req:Request, res:Response) {
@@ -15,7 +16,7 @@ async function getEmprestimo(req:Request, res:Response) {
 async function createEmprestimo(req: Request, res: Response) {
     try{
         const data = req.body
-        const createEmprestimo = await repository.createEmprestimo(data)
+        const createEmprestimo = await service.EmpVerificar(data)
         res.status(200).json(createEmprestimo)
     }catch(e){
         console.error(e)

@@ -8,7 +8,7 @@ interface CreateEmprestimoDTO {
     livros: number[];
 }
 
-async function create(data: CreateEmprestimoDTO) {
+async function EmpVerificar(data: CreateEmprestimoDTO) {
 
     const livros = await prisma.livro.findMany({
 
@@ -33,12 +33,16 @@ async function create(data: CreateEmprestimoDTO) {
     }
 
     // Verifica se pertence ao acervo
-    const foraDoAcervo = livros.find(l => !l.acervo);
+    const foraDoAcervo = livros.find(l => l.acervo);
 
     if (foraDoAcervo) {
-        throw new Error(`O livro ${foraDoAcervo.titulo} não pertence ao acervo.`);
+        throw new Error(`O livro ${foraDoAcervo.titulo} pertence ao acervo.`);
     }
 
     return await repository.createEmprestimo(data);
 
+}
+
+export default{
+    EmpVerificar
 }
