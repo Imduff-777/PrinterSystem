@@ -28,7 +28,7 @@ model Livro {
   edicao          Int
   formato         String
   cdd             String
-  acervo          Boolean  @default(false)
+  tombado         Boolean  @default(false)
   disponivel      Boolean  @default(true)
   itensEmprestimo itemEmprestimo[]
 }

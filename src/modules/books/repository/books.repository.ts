@@ -4,14 +4,30 @@ import { prisma } from "../../../prisma/prisma.js"
 import { serialize } from "node:v8"
 type LivroCreateInput = Prisma.LivroCreateInput
 
+interface CreateLivroDTO {
+    titulo: string;
+    subtitulo: string;
+    editora: string;
+    data: string | Date;
+    edicao: number;
+    formato: string;
+    cdd: string;
+    acervo?: boolean;
+    disponivel?: boolean;
+    autor: Prisma.AutorCreateNestedOneWithoutLivrosInput;
+    itensEmprestimo?: Prisma.itemEmprestimoCreateNestedManyWithoutLivroInput;
+    copias:number
+}
 
 
-async function createOrder(data: LivroCreateInput){
-    const createOrder = await prisma.livro.create({
-        data
-    })
-    console.log(createOrder)
-    return createOrder;
+
+async function createOrder(data: CreateLivroDTO){
+    const { copias, ...livroData} = data
+    for(let i=0;i<copias;i++){
+        await prisma.livro.create({
+            data:livroData
+        })
+    }
     
 }
 
