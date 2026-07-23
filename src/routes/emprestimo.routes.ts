@@ -5,5 +5,6 @@ import controller from "../modules/emprestimo/controller/emprestimo.controller.j
 emprestimoRouter.get("/", controller.getEmprestimo)
 emprestimoRouter.post("/createEmp", controller.createEmprestimo)
 emprestimoRouter.put("/finEmp", controller.finalizarEmprestimo)
+emprestimoRouter.delete("/del/:id", controller.deleteEmprestimo)
 
 export{emprestimoRouter}

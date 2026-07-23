@@ -130,6 +130,36 @@ async function finalizarEmprestimo(data:CreateItemEmprestimoDTO){
     
 }
 
+async function deleteEmprestimo(id: number) {
+    await prisma.$transaction(async (tx) => {
+        const itens = await tx.itemEmprestimo.findMany({
+            where:{
+                emprestimoId:id
+            }
+        })
+
+        const livros = itens.map(i => i.livroId)
+        await tx.livro.updateMany({
+            where:{
+                id:{
+                    in:livros
+                }
+            },
+            data:{
+                disponivel:true
+            }
+        }) 
+
+        await tx.emprestimo.delete({
+            where:{
+                id:id
+            }
+        })
+    })
+    
+    
+}
+
 
 
     
@@ -138,5 +168,6 @@ async function finalizarEmprestimo(data:CreateItemEmprestimoDTO){
 export default{
     createEmprestimo,
     finalizarEmprestimo,
-    getEmprestimo
+    getEmprestimo,
+    deleteEmprestimo
 }

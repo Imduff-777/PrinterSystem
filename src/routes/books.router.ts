@@ -7,6 +7,7 @@ booksRouter.get("/", controller.getBooks)
 booksRouter.post("/addorder", controller.addOrder)
 booksRouter.put("/update/:id", controller.updateOrder)
 booksRouter.delete("/delete/:id", controller.deleteOrder)
+booksRouter.delete("/delete", controller.deleteBooks)
 
 export{booksRouter}
 

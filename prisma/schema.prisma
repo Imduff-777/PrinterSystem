@@ -76,10 +76,11 @@ model itemEmprestimo{
   id              Int      @id @default(autoincrement())
 
   emprestimoId    Int
-  emprestimo emprestimo    @relation(fields:[emprestimoId],references:[id])
+  emprestimo emprestimo    @relation(fields:[emprestimoId],references:[id],onDelete: Cascade)
 
   livroId         Int
   livro Livro              @relation(fields:[livroId],references:[id])
 
   dataDevolucao DateTime?
+
 }

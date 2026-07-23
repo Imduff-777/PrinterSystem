@@ -1,3 +1,4 @@
+import booksRepository from "../repository/books.repository.js"
 import repository from "../repository/books.repository.js"
 import type { Request, Response } from "express"
 
@@ -69,11 +70,24 @@ async function deleteOrder(req: Request, res: Response){
     }
 }
 
+async function deleteBooks(req:Request, res:Response) {
+    try {
+        const {ids} = req.body;
+        await booksRepository.deleteBooks({ids});
+        return res.status(204).send()
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({error: "Livros não encontrados"})
+    }
+    
+}
+
 export default {
     addOrder,
     getOrder,
     updateOrder,
     deleteOrder,
     /*getSearch,*/
-    getBooks
+    getBooks,
+    deleteBooks
 }

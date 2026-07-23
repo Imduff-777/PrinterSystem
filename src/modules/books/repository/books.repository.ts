@@ -12,11 +12,15 @@ interface CreateLivroDTO {
     edicao: number;
     formato: string;
     cdd: string;
-    acervo?: boolean;
+    tombado?: boolean;
     disponivel?: boolean;
     autor: Prisma.AutorCreateNestedOneWithoutLivrosInput;
     itensEmprestimo?: Prisma.itemEmprestimoCreateNestedManyWithoutLivroInput;
     copias:number
+}
+
+export interface DeleteBooksDTO {
+    ids: number[];
 }
 
 
@@ -28,6 +32,7 @@ async function createOrder(data: CreateLivroDTO){
             data:livroData
         })
     }
+    console.log("livro criado")
     
 }
 
@@ -202,13 +207,26 @@ async function deleteOrder(id:number){
     return deleteOrder;
 }
 
+async function deleteBooks(data:DeleteBooksDTO) {
+    console.log(data.ids)
+    return await prisma.livro.deleteMany({
+        where:{
+            id:{
+                in: data.ids
+            }
+        }
+    })
+    
+}
+
 export default{
     createOrder,
     getOrder, 
     updateOrder, 
     deleteOrder,
     /*search,*/
-    getBooks
+    getBooks,
+    deleteBooks
 }
 
 

@@ -36,8 +36,19 @@ async function finalizarEmprestimo(req:Request, res: Response) {
     
 }
 
+async function deleteEmprestimo(req:Request, res:Response) {
+    try{
+        const deleteEmprestimo = await repository.deleteEmprestimo(Number(req.params.id))
+        res.json(deleteEmprestimo)
+    }catch(e){
+        console.error(e)
+        res.status(404).json({error: "Emprestimo não encontrado"})
+    }
+}
+
 export default{
     createEmprestimo,
     finalizarEmprestimo,
-    getEmprestimo
+    getEmprestimo,
+    deleteEmprestimo
 }

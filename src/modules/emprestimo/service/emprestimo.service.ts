@@ -33,10 +33,10 @@ async function EmpVerificar(data: CreateEmprestimoDTO) {
     }
 
     // Verifica se pertence ao acervo
-    const foraDoAcervo = livros.find(l => l.acervo);
+    const tombado= livros.find(l => l.tombado);
 
-    if (foraDoAcervo) {
-        throw new Error(`O livro ${foraDoAcervo.titulo} pertence ao acervo.`);
+    if (tombado) {
+        throw new Error(`O livro ${tombado.titulo} pertence ao tombado.`);
     }
 
     return await repository.createEmprestimo(data);
