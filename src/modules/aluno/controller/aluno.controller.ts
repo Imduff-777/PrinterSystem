@@ -1,5 +1,6 @@
 import { get } from "node:http"
 import repository from "../repository/aluno.repository.js"
+import service from "../service/aluno.service.js"
 import type { Request, Response } from "express"
 
 async function addAluno(req: Request, res: Response){
@@ -37,11 +38,14 @@ async function updateAluno(req: Request, res: Response){
 
 async function deleteAluno(req: Request, res: Response){
     try{
-        const order = await repository.deleteAluno(Number(req.params.id))
+        const order = await service.EmpAluno(Number(req.params.id))
         res.json(order)
-    }catch(e){
-        console.log(e)
-        res.status(404).json({error: "Aluno não encontrado"})
+    }catch(error){
+          return res.status(400).json({
+            message: error instanceof Error
+                ? error.message
+                : "Erro ao excluir aluno"
+        });
     }
 }
 
