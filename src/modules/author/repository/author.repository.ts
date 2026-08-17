@@ -1,3 +1,4 @@
+import { totalmem } from "node:os"
 import type { Prisma } from "../../../../generated/prisma/client.js"
 import { prisma } from "../../../prisma/prisma.js"
 type AutorCreateInput = Prisma.AutorCreateInput
@@ -10,19 +11,25 @@ async function createAutor(data:AutorCreateInput) {
     return createAutor
 }
 
-async function getAutor(){
+async function getAutor(page: number){
+    const limit = 10
     console.log("entrou")
-    const getAutor = await prisma.autor.findMany({
-        include:{
-            _count:{
-                select:{
-                    livros:true
-                }
-            }
+    const [autores, total] = await prisma.$transaction([
+        prisma.autor.findMany({
+            include:{
+                livros:true
         }
-    });
-    console.log(getAutor)
-    return getAutor;
+        }),
+        prisma.autor.count()
+    ])
+    
+    console.log(autores)
+    return {
+        autores,
+        total,
+        pagina: page,
+        totalPaginas: Math.ceil(total / limit)
+    }
 }
 
 async function updateAutor(id: number, data: AutorCreateInput){ 
