@@ -40,6 +40,28 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+
+    "moduleResolution": "NodeNext",
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    
+
+
+    "resolveJsonModule": true
+  },
+
+  "include": ["src/**/*.ts"],
+
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+
+  
 
 }
