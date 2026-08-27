@@ -19,5 +19,5 @@ app.use("/emprestimo", emprestimoRouter)
 
 
 
-export {app}
+export default app
 

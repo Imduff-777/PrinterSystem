@@ -16,6 +16,10 @@ async function getAutor(page: number){
     console.log("entrou")
     const [autores, total] = await prisma.$transaction([
         prisma.autor.findMany({
+
+            skip:(page - 1) * limit,
+            take:limit,
+
             include:{
                 livros:true
         }
