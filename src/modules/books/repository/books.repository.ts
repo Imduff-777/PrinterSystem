@@ -8,7 +8,7 @@ interface CreateLivroDTO {
     titulo: string;
     subtitulo: string;
     editora: string;
-    data: string | Date;
+    data: number;
     edicao: number;
     formato: string;
     cdd: string;
