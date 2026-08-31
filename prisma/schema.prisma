@@ -24,7 +24,7 @@ model Livro {
   titulo          String
   subtitulo       String
   editora         String
-  data            DateTime
+  data            Int      @db.SmallInt
   edicao          Int
   formato         String
   cdd             String
