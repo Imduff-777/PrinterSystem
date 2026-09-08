@@ -84,3 +84,10 @@ model itemEmprestimo{
   dataDevolucao DateTime?
 
 }
+
+model Usuario {
+  id        String   @id @default(cuid())
+  usuario   String   @unique
+  senhaHash String
+  criadoEm  DateTime @default(now())
+}
