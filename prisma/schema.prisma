@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Solicitante {
-  id              Int       @id @default(autoincrement())
+  id              String   @id @default(uuid())
   nomeSolicitante String
   titulo          String
   descricao       String
@@ -18,8 +18,8 @@ model Solicitante {
 }
 
 model Livro {
-  id              Int      @id @default(autoincrement())
-  autorID         Int
+  id              String   @id @default(uuid())
+  autorID         String
   autor           Autor    @relation(fields: [autorID], references: [id])
   titulo          String
   subtitulo       String
@@ -34,7 +34,7 @@ model Livro {
 }
 
 model Autor {
-  id              Int      @id @default(autoincrement())
+  id              String   @id @default(uuid())
   nome            String
   livros          Livro[]
 }
@@ -54,7 +54,7 @@ enum PostoGraduacao {
 }
 
 model Aluno {
-  id              Int      @id @default(autoincrement())
+  id              String   @id @default(uuid())
   pg              PostoGraduacao
   nome            String
   cpf             String   @unique @db.Char(11)
@@ -63,8 +63,8 @@ model Aluno {
 
 model emprestimo {
 
-  id Int @id @default(autoincrement())
-  alunoId Int
+  id              String   @id @default(uuid())
+  alunoId String
   aluno Aluno @relation(fields:[alunoId],references:[id])
   itens itemEmprestimo[]
   dataEmprestimo DateTime @default(now())
@@ -73,12 +73,12 @@ model emprestimo {
 }
 
 model itemEmprestimo{
-  id              Int      @id @default(autoincrement())
+  id              String   @id @default(uuid())
 
-  emprestimoId    Int
+  emprestimoId    String
   emprestimo emprestimo    @relation(fields:[emprestimoId],references:[id],onDelete: Cascade)
 
-  livroId         Int
+  livroId         String
   livro Livro              @relation(fields:[livroId],references:[id])
 
   dataDevolucao DateTime?

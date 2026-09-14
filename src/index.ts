@@ -20,8 +20,5 @@ app.use("/aluno", authToken, alunoRouter)
 app.use("/emprestimo", authToken, emprestimoRouter)
 app.use("/login", loginRouter)
 
-
-
-
 export default app
 
