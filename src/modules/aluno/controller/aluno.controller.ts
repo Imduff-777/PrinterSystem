@@ -28,7 +28,7 @@ async function getAluno(req: Request, res: Response){
 
 async function updateAluno(req: Request, res: Response){
     try{
-        const order = await repository.updateAluno(Number(req.params.id), req.body)
+        const order = await repository.updateAluno(String(req.params.id), req.body)
         res.json(order)
     }catch(e){
         console.log(e)
@@ -38,7 +38,7 @@ async function updateAluno(req: Request, res: Response){
 
 async function deleteAluno(req: Request, res: Response){
     try{
-        const order = await service.EmpAluno(Number(req.params.id))
+        const order = await service.EmpAluno(String(req.params.id))
         res.json(order)
     }catch(error){
           return res.status(400).json({

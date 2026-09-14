@@ -25,7 +25,7 @@ async function getOrder(req: Request, res: Response){
 
 async function updateOrder(req: Request, res: Response){
     try{
-        const order = await repository.updateOrder(Number(req.params.id), req.body)
+        const order = await repository.updateOrder(String(req.params.id), req.body)
         res.json(order)
     }catch(e){
         console.log(e)
@@ -35,7 +35,7 @@ async function updateOrder(req: Request, res: Response){
 
 async function deleteOrder(req: Request, res: Response){
     try{
-        const order = await repository.deleteOrder(Number(req.params.id))
+        const order = await repository.deleteOrder(String(req.params.id))
         res.json(order)
     }catch(e){
         console.log(e)

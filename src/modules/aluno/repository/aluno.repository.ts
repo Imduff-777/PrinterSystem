@@ -32,7 +32,7 @@ async function getAluno(page:number){
     }
 }
 
-async function updateAluno(id: number, data: AlunoCreateInput){ 
+async function updateAluno(id: string, data: AlunoCreateInput){ 
     const updateOrder = await prisma.aluno.update({
         where: {
             id: id
@@ -43,7 +43,7 @@ async function updateAluno(id: number, data: AlunoCreateInput){
     return updateOrder;
 }
 
-async function deleteAluno(id:number){
+async function deleteAluno(id:string){
     const deleteOrder = await prisma.aluno.delete({
         where:{
             id: id

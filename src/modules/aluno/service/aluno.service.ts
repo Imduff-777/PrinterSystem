@@ -4,7 +4,7 @@ import repository from "../repository/aluno.repository.js"
 
 
 
-async function EmpAluno(alunoId: number) {
+async function EmpAluno(alunoId: string) {
     const emprestimo = await prisma.emprestimo.findMany({
         where:{ 
             alunoId:alunoId

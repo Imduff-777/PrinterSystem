@@ -5,14 +5,14 @@ import { prisma } from "../../../prisma/prisma.js"
 type emprestimo = Prisma.itemEmprestimoCreateInput
 
 interface CreateItemEmprestimoDTO {
-    id:number[]
+    id: string[];
     dataDevolucao: Date;
 }
 
 interface CreateEmprestimoDTO {
-    alunoId: number;
+    alunoId: string;
     dataPrevistaDevolucao: string | Date;
-    livros: number[];
+    livros: string[];
 }
 
 async function getEmprestimo(page:number){
@@ -130,7 +130,7 @@ async function finalizarEmprestimo(data:CreateItemEmprestimoDTO){
     
 }
 
-async function deleteEmprestimo(id: number) {
+async function deleteEmprestimo(id: string) {
     await prisma.$transaction(async (tx) => {
         const itens = await tx.itemEmprestimo.findMany({
             where:{

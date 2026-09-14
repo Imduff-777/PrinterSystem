@@ -36,7 +36,7 @@ async function getAutor(page: number){
     }
 }
 
-async function updateAutor(id: number, data: AutorCreateInput){ 
+async function updateAutor(id: string, data: AutorCreateInput){ 
     const updateAutor = await prisma.autor.update({
         where: {
             id: id
@@ -47,7 +47,7 @@ async function updateAutor(id: number, data: AutorCreateInput){
     return updateAutor;
 }
 
-async function deleteAutor(id:number){
+async function deleteAutor(id:string){
     const deleteAutor = await prisma.autor.delete({
         where:{
             id: id

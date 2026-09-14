@@ -20,7 +20,7 @@ interface CreateLivroDTO {
 }
 
 export interface DeleteBooksDTO {
-    ids: number[];
+    ids: string[];
 }
 
 
@@ -186,7 +186,7 @@ async function search(query:string) {
 }
 */
 
-async function updateOrder(id: number, data: LivroCreateInput){ 
+async function updateOrder(id: string, data: LivroCreateInput){ 
     const updateOrder = await prisma.livro.update({
         where: {
             id: id
@@ -197,7 +197,7 @@ async function updateOrder(id: number, data: LivroCreateInput){
     return updateOrder;
 }
 
-async function deleteOrder(id:number){
+async function deleteOrder(id: string){
     const deleteOrder = await prisma.livro.delete({
         where:{
             id: id

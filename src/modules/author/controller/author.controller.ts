@@ -26,7 +26,7 @@ async function getAutor(req: Request, res: Response){
 
 async function updateAutor(req: Request, res: Response){
     try{
-        const order = await repository.updateAutor(Number(req.params.id), req.body)
+        const order = await repository.updateAutor(String(req.params.id), req.body)
         res.json(order)
     }catch(e){
         console.log(e)
@@ -36,7 +36,7 @@ async function updateAutor(req: Request, res: Response){
 
 async function deleteAutor(req: Request, res: Response){
     try{
-        const order = await repository.deleteAutor(Number(req.params.id))
+        const order = await repository.deleteAutor(String(req.params.id))
         res.json(order)
     }catch(e){
         console.log(e)

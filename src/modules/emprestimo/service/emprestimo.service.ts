@@ -3,9 +3,9 @@ import { prisma } from "../../../prisma/prisma.js"
 import repository from "../repository/emprestimo.repository.js"
 
 interface CreateEmprestimoDTO {
-    alunoId: number;
+    alunoId: string;
     dataPrevistaDevolucao: string | Date;
-    livros: number[];
+    livros: string[];
 }
 
 async function EmpVerificar(data: CreateEmprestimoDTO) {

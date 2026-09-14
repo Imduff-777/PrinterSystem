@@ -27,7 +27,7 @@ async function getOrder(){
     return getOrder;
 }
 
-async function updateOrder(id: number, data: Prisma.SolicitanteCreateInput){ 
+async function updateOrder(id: string, data: Prisma.SolicitanteCreateInput){ 
     const updateOrder = await prisma.solicitante.update({
         where: {
             id: id
@@ -38,7 +38,7 @@ async function updateOrder(id: number, data: Prisma.SolicitanteCreateInput){
     return updateOrder;
 }
 
-async function deleteOrder(id:number){
+async function deleteOrder(id:string){
     const deleteOrder = await prisma.solicitante.delete({
         where:{
             id: id
